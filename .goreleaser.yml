@@ -1,3 +1,5 @@
+version: 2
+
 project_name: hsctl
 
 before:
@@ -23,17 +25,15 @@ builds:
       - -s -w -X github.com/obay/hsctl/cmd.version={{.Version}} -X github.com/obay/hsctl/cmd.commit={{.Commit}} -X github.com/obay/hsctl/cmd.buildDate={{.Date}}
 
 archives:
-  # Versioned archives (standard)
-  - format: tar.gz
-    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}_{{ .Version }}"
+  - id: versioned
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     files:
       - README.md
       - LICENSE
     format_overrides:
       - goos: windows
         format: zip
-  # Version-less archives for easier direct downloads via /latest/download/
-  - format: tar.gz
+  - id: versionless
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
     files:
       - README.md
@@ -46,7 +46,7 @@ checksum:
   name_template: 'checksums.txt'
 
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ .Tag }}-next"
 
 changelog:
   sort: asc
@@ -65,20 +65,21 @@ release:
   footer: |
     **Full Changelog**: https://github.com/obay/hsctl/compare/{{ .PreviousTag }}...{{ .Tag }}
 
-scoop:
-  bucket:
-    owner: obay
-    name: scoop-bucket
-  homepage: "https://github.com/obay/hsctl"
-  description: "A CLI tool for managing HubSpot contacts"
-  license: "MIT"
-  persist:
-    - config
-  skip_upload: false
+scoops:
+  - ids:
+      - versionless
+    repository:
+      owner: obay
+      name: scoop-bucket
+    homepage: "https://github.com/obay/hsctl"
+    description: "A CLI tool for managing HubSpot contacts"
+    license: "MIT"
+    skip_upload: false
 
 brews:
-  - name: hsctl
-    tap:
+  - ids:
+      - versionless
+    repository:
       owner: obay
       name: homebrew-tap
     homepage: "https://github.com/obay/hsctl"
@@ -90,8 +91,9 @@ brews:
       bin.install "hsctl"
 
 nfpms:
-  - id: default
+  - id: packages
     package_name: hsctl
+    file_name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
     maintainer: "obay <your-email@example.com>"
     description: "A CLI tool for managing HubSpot contacts"
     homepage: "https://github.com/obay/hsctl"
