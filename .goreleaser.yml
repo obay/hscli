@@ -32,7 +32,7 @@ archives:
       - LICENSE
     format_overrides:
       - goos: windows
-        format: zip
+        formats: [zip]
   - id: versionless
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
     files:
@@ -40,7 +40,7 @@ archives:
       - LICENSE
     format_overrides:
       - goos: windows
-        format: zip
+        formats: [zip]
 
 checksum:
   name_template: 'checksums.txt'
@@ -85,10 +85,10 @@ brews:
     homepage: "https://github.com/obay/hsctl"
     description: "A CLI tool for managing HubSpot contacts"
     license: "MIT"
-    test: |
-      system "#{bin}/hsctl --version"
     install: |
       bin.install "hsctl"
+    test: |
+      system "#{bin}/hsctl --version"
 
 nfpms:
   - id: packages
