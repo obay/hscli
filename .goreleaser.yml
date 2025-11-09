@@ -76,19 +76,28 @@ scoops:
     license: "MIT"
     skip_upload: false
 
-brews:
+homebrew_casks:
   - ids:
       - versionless
     repository:
       owner: obay
       name: homebrew-tap
+    name: hsctl
     homepage: "https://github.com/obay/hsctl"
     description: "A CLI tool for managing HubSpot contacts"
     license: "MIT"
-    install: |
-      bin.install "hsctl"
+    url:
+      verified: github.com/obay/hsctl
+    binary: hsctl
+    # If the binary isn't signed/notarized, unquarantine it so users don't get blocked
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/hsctl"], sudo: false
+          end
     test: |
-      system "#{bin}/hsctl --version"
+      system "#{appdir}/bin/hsctl --version"
 
 nfpms:
   - id: packages
