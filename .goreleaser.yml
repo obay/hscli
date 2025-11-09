@@ -1,0 +1,90 @@
+project_name: hsctl
+
+before:
+  hooks:
+    - go mod download
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+    main: ./main.go
+    binary: hsctl
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X github.com/obay/hsctl/cmd.version={{.Version}} -X github.com/obay/hsctl/cmd.commit={{.Commit}} -X github.com/obay/hsctl/cmd.buildDate={{.Date}}
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}_{{ .Version }}"
+    files:
+      - README.md
+      - LICENSE
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+release:
+  github:
+    owner: obay
+    name: hsctl
+  mode: replace
+  header: |
+    ## What's Changed
+  footer: |
+    **Full Changelog**: https://github.com/obay/hsctl/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+scoop:
+  bucket:
+    owner: obay
+    name: hsctl-scoop
+  homepage: "https://github.com/obay/hsctl"
+  description: "A CLI tool for managing HubSpot contacts"
+  license: "MIT"
+  persist:
+    - config
+  skip_upload: true  # Set to false after creating the scoop bucket repository
+
+brews:
+  - name: hsctl
+    homepage: "https://github.com/obay/hsctl"
+    description: "A CLI tool for managing HubSpot contacts"
+    license: "MIT"
+    test: |
+      system "#{bin}/hsctl --version"
+    install: |
+      bin.install "hsctl"
+
+nfpms:
+  - id: default
+    package_name: hsctl
+    maintainer: "obay <your-email@example.com>"
+    description: "A CLI tool for managing HubSpot contacts"
+    homepage: "https://github.com/obay/hsctl"
+    license: "MIT"
+    formats:
+      - deb
+      - rpm
+    bindir: /usr/bin
+

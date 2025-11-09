@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "description": "A CLI tool for managing HubSpot contacts",
+  "homepage": "https://github.com/obay/hsctl",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/obay/hsctl/releases/download/v0.1.0/hsctl_0.1.0_windows_amd64.zip",
+      "hash": "auto"
+    }
+  },
+  "bin": "hsctl.exe",
+  "checkver": {
+    "github": "obay/hsctl"
+  },
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/obay/hsctl/releases/download/v$version/hsctl_$version_windows_amd64.zip"
+      }
+    }
+  },
+  "persist": [
+    "config"
+  ]
+}
+
