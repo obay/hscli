@@ -3,7 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 
@@ -313,15 +312,11 @@ func init() {
 }
 
 func getAPIKey() string {
-	// Check flag first
-	if apiKey := viper.GetString("api-key"); apiKey != "" {
-		return apiKey
-	}
-	// Check environment variable
-	if apiKey := os.Getenv("HUBSPOT_API_KEY"); apiKey != "" {
-		return apiKey
-	}
-	return ""
+	// Viper automatically checks in this order:
+	// 1. Command-line flag (--api-key)
+	// 2. Environment variable (HUBSPOT_API_KEY)
+	// 3. Config file (~/.hsctl.yaml)
+	return viper.GetString("api-key")
 }
 
 func printContacts(contacts []hubspot.Contact, format string) error {

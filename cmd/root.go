@@ -48,8 +48,11 @@ func initConfig() {
 		viper.SetConfigName(".hsctl")
 	}
 
-	viper.AutomaticEnv() // read in environment variables that match
 	viper.SetEnvPrefix("HUBSPOT")
+	viper.AutomaticEnv() // read in environment variables that match
+
+	// Bind the api-key to the HUBSPOT_API_KEY environment variable
+	viper.BindEnv("api-key", "HUBSPOT_API_KEY")
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
