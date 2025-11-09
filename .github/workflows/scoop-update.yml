@@ -11,7 +11,7 @@ jobs:
       - name: Checkout Scoop Bucket
         uses: actions/checkout@v4
         with:
-          repository: obay/hsctl-scoop
+          repository: obay/scoop-bucket
           token: ${{ secrets.SCOOP_BUCKET_TOKEN }}
           path: scoop-bucket
 

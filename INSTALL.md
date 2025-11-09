@@ -15,7 +15,7 @@ This guide provides detailed installation instructions for HSCTL on different pl
 
 1. Add the tap:
    ```bash
-   brew tap obay/hsctl
+   brew tap obay/homebrew-tap
    ```
 
 2. Install:
@@ -62,7 +62,7 @@ This guide provides detailed installation instructions for HSCTL on different pl
 
 2. Add the bucket:
    ```powershell
-   scoop bucket add hsctl https://github.com/obay/hsctl-scoop
+   scoop bucket add obay https://github.com/obay/scoop-bucket
    ```
 
 3. Install:

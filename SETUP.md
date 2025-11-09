@@ -6,8 +6,8 @@ This guide will help you set up the infrastructure needed to publish HSCTL using
 
 - [ ] Repository is on GitHub (`obay/hsctl`)
 - [ ] GitHub Actions are enabled
-- [ ] Create Scoop bucket repository (optional, for Windows)
-- [ ] Create Homebrew tap repository (optional, for macOS)
+- [x] Scoop bucket repository exists: `obay/scoop-bucket`
+- [x] Homebrew tap repository exists: `obay/homebrew-tap`
 - [ ] Configure GitHub secrets (if using automated Scoop updates)
 
 ## Step-by-Step Setup
@@ -27,49 +27,36 @@ This guide will help you set up the infrastructure needed to publish HSCTL using
 
 ### 2. Scoop Bucket Setup (Windows)
 
-Scoop requires a separate repository for the bucket.
+Your Scoop bucket repository is already set up at `obay/scoop-bucket`.
 
-1. **Create the bucket repository**:
-   - Go to GitHub and create a new repository: `hsctl-scoop`
-   - Make it public
-   - Initialize with a README
+1. **GoReleaser is configured** to automatically update the bucket:
+   - The `.goreleaser.yml` is configured with `skip_upload: false`
+   - GoReleaser will automatically create/update the manifest in your bucket
 
-2. **Update GoReleaser config** (if you want automatic updates):
-   - Edit `.goreleaser.yml`
-   - Set `skip_upload: false` in the `scoop` section
-   - Create a GitHub token with repo access
+2. **Users install with**:
+   ```powershell
+   scoop bucket add obay https://github.com/obay/scoop-bucket
+   scoop install hsctl
+   ```
+
+3. **For automatic updates** (optional):
+   - Create a GitHub token with repo access to `obay/scoop-bucket`
    - Add it as `SCOOP_BUCKET_TOKEN` in repository secrets
-
-3. **Manual alternative**:
-   - After each release, GoReleaser generates a manifest
-   - Manually copy it to your `hsctl-scoop` repository
-   - Users install with: `scoop bucket add hsctl https://github.com/obay/hsctl-scoop`
+   - The workflow will automatically update the bucket on each release
 
 ### 3. Homebrew Tap Setup (macOS)
 
-You have two options:
+Your Homebrew tap repository is already set up at `obay/homebrew-tap`.
 
-#### Option A: Separate Tap Repository (Recommended)
+1. **GoReleaser is configured** to automatically update the tap:
+   - The `.goreleaser.yml` is configured with your tap repository
+   - GoReleaser will automatically create/update the formula in your tap
 
-1. **Create tap repository**:
-   - Create: `homebrew-hsctl`
-   - Make it public
-   - Structure: `Formula/hsctl.rb`
-
-2. **After each release**:
-   - GoReleaser generates a formula
-   - Copy it to your tap repository
-   - Users install with: `brew install obay/hsctl/hsctl`
-
-#### Option B: Main Repository
-
-1. **Keep formulas in main repo**:
-   - Formulas are in `Formula/hsctl.rb`
-   - Users install with: `brew install obay/hsctl/hsctl`
-
-2. **Update `.goreleaser.yml`**:
-   - The `brews` section is already configured
-   - GoReleaser will update the formula automatically
+2. **Users install with**:
+   ```bash
+   brew tap obay/homebrew-tap
+   brew install hsctl
+   ```
 
 ### 4. First Release
 
@@ -127,15 +114,13 @@ After setup, users can install with:
 
 ### macOS (Homebrew)
 ```bash
-brew install obay/hsctl/hsctl
-# or if using separate tap:
-brew tap obay/hsctl
+brew tap obay/homebrew-tap
 brew install hsctl
 ```
 
 ### Windows (Scoop)
 ```powershell
-scoop bucket add hsctl https://github.com/obay/hsctl-scoop
+scoop bucket add obay https://github.com/obay/scoop-bucket
 scoop install hsctl
 ```
 

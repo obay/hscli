@@ -46,25 +46,58 @@ HSCTL bridges this gap by providing a fast, scriptable interface to HubSpot's co
 
 ## Installation
 
+### Quick Install (Direct Download)
+
+Download the latest release directly from GitHub. GoReleaser automatically creates downloadable packages for each release.
+
+**macOS:**
+- [Intel (amd64) - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_amd64.tar.gz)
+- [Apple Silicon (arm64) - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_arm64.tar.gz)
+
+**Linux:**
+- [Intel (amd64) - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.tar.gz)
+- [ARM64 - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_arm64.tar.gz)
+- [Debian Package (.deb)](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.deb)
+- [RPM Package (.rpm)](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.rpm)
+
+**Windows:**
+- [64-bit ZIP - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_windows_amd64.zip)
+
+📦 **[View All Releases](https://github.com/obay/hsctl/releases)** | 🔍 **[Verify Checksums](https://github.com/obay/hsctl/releases/latest/download/checksums.txt)**
+
+> **Note:** After downloading, extract the archive and move the binary to your PATH. See platform-specific instructions below for detailed steps.
+
 ### macOS
 
 #### Using Homebrew (Recommended)
 
 ```bash
-brew install obay/hsctl/hsctl
+brew tap obay/homebrew-tap
+brew install hsctl
 ```
 
-#### Manual Installation
+#### Direct Download
 
-1. Download the latest release for macOS from the [Releases page](https://github.com/obay/hsctl/releases)
+1. Download the latest release for your architecture:
+   ```bash
+   # Intel Mac
+   curl -LO https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_amd64.tar.gz
+   
+   # Apple Silicon Mac
+   curl -LO https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_arm64.tar.gz
+   ```
+
 2. Extract the archive:
    ```bash
-   tar -xzf hsctl_darwin_amd64_v1.0.0.tar.gz
+   tar -xzf hsctl_darwin_*.tar.gz
    ```
+
 3. Move the binary to your PATH:
    ```bash
    sudo mv hsctl /usr/local/bin/
+   chmod +x /usr/local/bin/hsctl
    ```
+
 4. Verify installation:
    ```bash
    hsctl --version
@@ -75,15 +108,28 @@ brew install obay/hsctl/hsctl
 #### Using Scoop (Recommended)
 
 ```powershell
-scoop bucket add hsctl https://github.com/obay/hsctl-scoop
+scoop bucket add obay https://github.com/obay/scoop-bucket
 scoop install hsctl
 ```
 
-#### Manual Installation
+#### Direct Download
 
-1. Download the latest release for Windows from the [Releases page](https://github.com/obay/hsctl/releases)
-2. Extract the ZIP file
-3. Add the extracted directory to your system PATH
+1. Download the latest Windows release:
+   ```powershell
+   Invoke-WebRequest -Uri "https://github.com/obay/hsctl/releases/latest/download/hsctl_windows_amd64.zip" -OutFile "hsctl.zip"
+   ```
+
+2. Extract the ZIP file:
+   ```powershell
+   Expand-Archive -Path hsctl.zip -DestinationPath .
+   ```
+
+3. Add to PATH (choose one method):
+   - **Option A**: Move `hsctl.exe` to a directory already in your PATH (e.g., `C:\Windows\System32`)
+   - **Option B**: Add the extracted directory to your system PATH:
+     - Open System Properties → Environment Variables
+     - Edit PATH and add the directory containing `hsctl.exe`
+
 4. Verify installation:
    ```powershell
    hsctl --version
@@ -91,26 +137,55 @@ scoop install hsctl
 
 ### Linux
 
-#### Using Package Manager (Debian/Ubuntu)
+#### Option 1: Debian/Ubuntu (.deb package) - Recommended
 
-```bash
-# Download and install .deb package
-wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.deb
-sudo dpkg -i hsctl_linux_amd64.deb
-```
-
-#### Manual Installation
-
-1. Download the latest release for Linux from the [Releases page](https://github.com/obay/hsctl/releases)
-2. Extract the archive:
+1. Download and install:
    ```bash
-   tar -xzf hsctl_linux_amd64_v1.0.0.tar.gz
+   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.deb
+   sudo dpkg -i hsctl_linux_amd64.deb
    ```
-3. Move the binary to your PATH:
+
+2. Verify:
+   ```bash
+   hsctl --version
+   ```
+
+#### Option 2: Red Hat/CentOS/Fedora (.rpm package) - Recommended
+
+1. Download and install:
+   ```bash
+   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.rpm
+   sudo rpm -i hsctl_linux_amd64.rpm
+   ```
+
+2. Verify:
+   ```bash
+   hsctl --version
+   ```
+
+#### Option 3: Direct Download (Any Linux Distribution)
+
+1. Download the tarball for your architecture:
+   ```bash
+   # Intel/AMD64
+   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.tar.gz
+   
+   # ARM64
+   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_arm64.tar.gz
+   ```
+
+2. Extract:
+   ```bash
+   tar -xzf hsctl_linux_*.tar.gz
+   ```
+
+3. Install:
    ```bash
    sudo mv hsctl /usr/local/bin/
+   sudo chmod +x /usr/local/bin/hsctl
    ```
-4. Verify installation:
+
+4. Verify:
    ```bash
    hsctl --version
    ```

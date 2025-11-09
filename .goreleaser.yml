@@ -23,8 +23,18 @@ builds:
       - -s -w -X github.com/obay/hsctl/cmd.version={{.Version}} -X github.com/obay/hsctl/cmd.commit={{.Commit}} -X github.com/obay/hsctl/cmd.buildDate={{.Date}}
 
 archives:
+  # Versioned archives (standard)
   - format: tar.gz
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}_{{ .Version }}"
+    files:
+      - README.md
+      - LICENSE
+    format_overrides:
+      - goos: windows
+        format: zip
+  # Version-less archives for easier direct downloads via /latest/download/
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
     files:
       - README.md
       - LICENSE
@@ -58,16 +68,19 @@ release:
 scoop:
   bucket:
     owner: obay
-    name: hsctl-scoop
+    name: scoop-bucket
   homepage: "https://github.com/obay/hsctl"
   description: "A CLI tool for managing HubSpot contacts"
   license: "MIT"
   persist:
     - config
-  skip_upload: true  # Set to false after creating the scoop bucket repository
+  skip_upload: false
 
 brews:
   - name: hsctl
+    tap:
+      owner: obay
+      name: homebrew-tap
     homepage: "https://github.com/obay/hsctl"
     description: "A CLI tool for managing HubSpot contacts"
     license: "MIT"

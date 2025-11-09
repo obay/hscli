@@ -16,12 +16,12 @@ This guide explains how to release a new version of HSCTL using GoReleaser and G
    - `write:packages` if publishing packages
 
 3. **Scoop Bucket Repository** (for Windows):
-   - Create a repository named `hsctl-scoop` under your GitHub account
-   - This will store the Scoop manifest files
+   - Already configured: `obay/scoop-bucket`
+   - GoReleaser will automatically update the manifest
 
 4. **Homebrew Tap** (for macOS):
-   - Create a repository named `homebrew-hsctl` under your GitHub account
-   - Or use the main repository with a `Formula` directory
+   - Already configured: `obay/homebrew-tap`
+   - GoReleaser will automatically update the formula
 
 ## Release Process
 
@@ -76,29 +76,24 @@ The release workflow (`.github/workflows/release.yml`) will automatically:
 
 #### Scoop (Windows)
 
-If you have a separate Scoop bucket repository:
+Your Scoop bucket is already configured at `obay/scoop-bucket`:
 
-1. The GoReleaser will generate a manifest file
-2. Manually copy it to your `hsctl-scoop` repository
-3. Or set up the automated workflow (see `.github/workflows/scoop-update.yml`)
+1. GoReleaser will automatically generate and upload the manifest
+2. The manifest will be committed to your `scoop-bucket` repository
+3. Users can install with: `scoop bucket add obay https://github.com/obay/scoop-bucket && scoop install hsctl`
 
-To enable automatic Scoop updates:
-1. Create a GitHub token with repo access
-2. Add it as `SCOOP_BUCKET_TOKEN` secret
-3. Update `.goreleaser.yml` to set `skip_upload: false` for scoop
+**For automatic updates** (optional):
+- Create a GitHub token with repo access to `obay/scoop-bucket`
+- Add it as `SCOOP_BUCKET_TOKEN` secret in your repository
+- The workflow will automatically update the bucket
 
 #### Homebrew (macOS)
 
-For Homebrew, you have two options:
+Your Homebrew tap is already configured at `obay/homebrew-tap`:
 
-**Option 1: Homebrew Tap (Recommended)**
-1. Create a repository: `homebrew-hsctl`
-2. GoReleaser will generate the formula
-3. Manually commit it to your tap repository
-
-**Option 2: Main Repository**
-1. Keep formulas in the `Formula/` directory
-2. Users install with: `brew install obay/hsctl/hsctl`
+1. GoReleaser will automatically generate and upload the formula
+2. The formula will be committed to your `homebrew-tap` repository
+3. Users can install with: `brew tap obay/homebrew-tap && brew install hsctl`
 
 ## Testing Releases Locally
 
