@@ -1,31 +1,31 @@
-# HSCTL
+# hscli
 
 <div align="center">
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/obay/hsctl/test.yml?branch=main&label=build&logo=github&logoColor=white)
-![Release](https://img.shields.io/github/v/release/obay/hsctl?label=release&logo=github&logoColor=white&sort=semver)
-![Downloads](https://img.shields.io/github/downloads/obay/hsctl/total?label=downloads&logo=github&logoColor=white)
-![Go Version](https://img.shields.io/github/go-mod/go-version/obay/hsctl?logo=go&logoColor=white)
-![License](https://img.shields.io/github/license/obay/hsctl?label=license&logo=github&logoColor=white)
+![Build Status](https://img.shields.io/github/actions/workflow/status/obay/hscli/test.yml?branch=main&label=build&logo=github&logoColor=white)
+![Release](https://img.shields.io/github/v/release/obay/hscli?label=release&logo=github&logoColor=white&sort=semver)
+![Downloads](https://img.shields.io/github/downloads/obay/hscli/total?label=downloads&logo=github&logoColor=white)
+![Go Version](https://img.shields.io/github/go-mod/go-version/obay/hscli?logo=go&logoColor=white)
+![License](https://img.shields.io/github/license/obay/hscli?label=license&logo=github&logoColor=white)
 ![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-lightgrey?logo=github&logoColor=white)
-![Go Report Card](https://goreportcard.com/badge/github.com/obay/hsctl)
-![Code Size](https://img.shields.io/github/languages/code-size/obay/hsctl?logo=github&logoColor=white)
-![Contributors](https://img.shields.io/github/contributors/obay/hsctl?logo=github&logoColor=white)
-![Last Commit](https://img.shields.io/github/last-commit/obay/hsctl/main?logo=github&logoColor=white)
-![GitHub stars](https://img.shields.io/github/stars/obay/hsctl?style=social&logo=github)
-![GitHub forks](https://img.shields.io/github/forks/obay/hsctl?style=social&logo=github)
+![Go Report Card](https://goreportcard.com/badge/github.com/obay/hscli)
+![Code Size](https://img.shields.io/github/languages/code-size/obay/hscli?logo=github&logoColor=white)
+![Contributors](https://img.shields.io/github/contributors/obay/hscli?logo=github&logoColor=white)
+![Last Commit](https://img.shields.io/github/last-commit/obay/hscli/main?logo=github&logoColor=white)
+![GitHub stars](https://img.shields.io/github/stars/obay/hscli?style=social&logo=github)
+![GitHub forks](https://img.shields.io/github/forks/obay/hscli?style=social&logo=github)
 
 [![Made with Go](https://img.shields.io/badge/Made%20with-Go-00ADD8?style=flat&logo=go&logoColor=white)](https://golang.org/)
 [![Powered by HubSpot](https://img.shields.io/badge/Powered%20by-HubSpot-FF7A59?style=flat&logo=hubspot&logoColor=white)](https://www.hubspot.com/)
-[![CLI Tool](https://img.shields.io/badge/CLI-Tool-4EC820?style=flat&logo=gnu-bash&logoColor=white)](https://github.com/obay/hsctl)
+[![CLI Tool](https://img.shields.io/badge/CLI-Tool-4EC820?style=flat&logo=gnu-bash&logoColor=white)](https://github.com/obay/hscli)
 
 </div>
 
-**HSCTL** is a powerful command-line interface (CLI) tool written in Go for managing HubSpot contacts. It provides a simple, efficient way to perform CRUD operations on your HubSpot contacts directly from your terminal, eliminating the need to navigate through the HubSpot web interface for routine contact management tasks.
+**hscli** is a powerful command-line interface (CLI) tool written in Go for managing HubSpot contacts. It provides a simple, efficient way to perform CRUD operations on your HubSpot contacts directly from your terminal, eliminating the need to navigate through the HubSpot web interface for routine contact management tasks.
 
 [Features](#benefits) • [Installation](#installation) • [Usage](#usage) • [Documentation](#command-reference) • [Contributing](#contributing)
 
-## Why HSCTL Exists
+## Why hscli Exists
 
 Managing contacts in HubSpot through the web interface can be time-consuming, especially when you need to:
 - Bulk update contact properties
@@ -33,7 +33,7 @@ Managing contacts in HubSpot through the web interface can be time-consuming, es
 - Automate contact management workflows
 - Integrate HubSpot operations into scripts and automation pipelines
 
-HSCTL bridges this gap by providing a fast, scriptable interface to HubSpot's contact management capabilities, making it perfect for developers, sales operations teams, and anyone who prefers working from the command line.
+hscli bridges this gap by providing a fast, scriptable interface to HubSpot's contact management capabilities, making it perfect for developers, sales operations teams, and anyone who prefers working from the command line.
 
 ## Benefits
 
@@ -50,41 +50,41 @@ HSCTL bridges this gap by providing a fast, scriptable interface to HubSpot's co
 
 ```bash
 brew tap obay/homebrew-tap
-brew install hsctl
+brew install hscli
 ```
 
 ### Windows
 
 ```powershell
 scoop bucket add obay https://github.com/obay/scoop-bucket
-scoop install hsctl
+scoop install hscli
 ```
 
 ### Linux
 
 **Debian/Ubuntu:**
 ```bash
-wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.deb
-sudo dpkg -i hsctl_linux_amd64.deb
+wget https://github.com/obay/hscli/releases/latest/download/hscli_linux_amd64.deb
+sudo dpkg -i hscli_linux_amd64.deb
 ```
 
 **Red Hat/CentOS/Fedora:**
 ```bash
-wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.rpm
-sudo rpm -i hsctl_linux_amd64.rpm
+wget https://github.com/obay/hscli/releases/latest/download/hscli_linux_amd64.rpm
+sudo rpm -i hscli_linux_amd64.rpm
 ```
 
 **Other distributions:**
 ```bash
-wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.tar.gz
-tar -xzf hsctl_linux_amd64.tar.gz
-sudo mv hsctl /usr/local/bin/
-sudo chmod +x /usr/local/bin/hsctl
+wget https://github.com/obay/hscli/releases/latest/download/hscli_linux_amd64.tar.gz
+tar -xzf hscli_linux_amd64.tar.gz
+sudo mv hscli /usr/local/bin/
+sudo chmod +x /usr/local/bin/hscli
 ```
 
 ### Direct Downloads
 
-📦 [View All Releases](https://github.com/obay/hsctl/releases) | 🔍 [Checksums](https://github.com/obay/hsctl/releases/latest/download/checksums.txt)
+📦 [View All Releases](https://github.com/obay/hscli/releases) | 🔍 [Checksums](https://github.com/obay/hscli/releases/latest/download/checksums.txt)
 
 Pre-built binaries are available for:
 - **macOS**: Intel (amd64) and Apple Silicon (arm64)
@@ -93,10 +93,10 @@ Pre-built binaries are available for:
 
 ## Configuration
 
-HSCTL requires a HubSpot API key to authenticate. Choose one of these methods:
+hscli requires a HubSpot API key to authenticate. Choose one of these methods:
 
 1. **Config file** (recommended):
-   Create `~/.hsctl.yaml`:
+   Create `~/.hscli.yaml`:
    ```yaml
    api-key: YOUR_API_KEY
    ```
@@ -108,7 +108,7 @@ HSCTL requires a HubSpot API key to authenticate. Choose one of these methods:
 
 3. **Command-line flag**:
    ```bash
-   hsctl contacts list --api-key YOUR_API_KEY
+   hscli contacts list --api-key YOUR_API_KEY
    ```
 
 ### Getting Your HubSpot API Key
@@ -123,22 +123,22 @@ HSCTL requires a HubSpot API key to authenticate. Choose one of these methods:
 
 ## Usage
 
-Once configured, you can use HSCTL without specifying the API key each time.
+Once configured, you can use hscli without specifying the API key each time.
 
 ### List Contacts
 
 ```bash
 # List first 100 contacts
-hsctl contacts list
+hscli contacts list
 
 # List with custom limit
-hsctl contacts list --limit 50
+hscli contacts list --limit 50
 
 # List all contacts (paginated)
-hsctl contacts list --all
+hscli contacts list --all
 
 # Output as JSON
-hsctl contacts list --format json
+hscli contacts list --format json
 ```
 
 ### List Properties
@@ -146,30 +146,30 @@ hsctl contacts list --format json
 View all available contact properties:
 
 ```bash
-hsctl contacts properties
+hscli contacts properties
 
 # Output as JSON
-hsctl contacts properties --format json
+hscli contacts properties --format json
 ```
 
 ### Create a Contact
 
 ```bash
 # Basic contact
-hsctl contacts create \
+hscli contacts create \
   --email "john.doe@example.com" \
   --firstname "John" \
   --lastname "Doe"
 
 # With lifecycle stage
-hsctl contacts create \
+hscli contacts create \
   --email "jane@example.com" \
   --firstname "Jane" \
   --lastname "Smith" \
   --lifecycle-stage "customer"
 
 # With custom properties
-hsctl contacts create \
+hscli contacts create \
   --email "bob@example.com" \
   --firstname "Bob" \
   --properties "company=Acme Inc,phone=555-1234"
@@ -179,10 +179,10 @@ hsctl contacts create \
 
 ```bash
 # Update lifecycle stage
-hsctl contacts update CONTACT_ID --lifecycle-stage "customer"
+hscli contacts update CONTACT_ID --lifecycle-stage "customer"
 
 # Update multiple properties
-hsctl contacts update CONTACT_ID \
+hscli contacts update CONTACT_ID \
   --firstname "John" \
   --lastname "Updated" \
   --properties "company=New Company,phone=555-9999"
@@ -192,23 +192,23 @@ hsctl contacts update CONTACT_ID \
 
 ```bash
 # Search by email
-hsctl contacts query "email=john@example.com"
+hscli contacts query "email=john@example.com"
 
 # Search by property
-hsctl contacts query "lifecyclestage=customer"
+hscli contacts query "lifecyclestage=customer"
 
 # Limit results
-hsctl contacts query "email=example" --limit 10
+hscli contacts query "email=example" --limit 10
 ```
 
 ### Delete a Contact
 
 ```bash
 # Delete with confirmation
-hsctl contacts delete CONTACT_ID
+hscli contacts delete CONTACT_ID
 
 # Skip confirmation prompt
-hsctl contacts delete CONTACT_ID --force
+hscli contacts delete CONTACT_ID --force
 ```
 
 ## Examples
@@ -217,24 +217,24 @@ hsctl contacts delete CONTACT_ID --force
 
 ```bash
 # List all leads and update them to customers
-hsctl contacts query "lifecyclestage=lead" --format json | \
+hscli contacts query "lifecyclestage=lead" --format json | \
   jq -r '.[] | .id' | \
   while read id; do
-    hsctl contacts update "$id" --lifecycle-stage "customer"
+    hscli contacts update "$id" --lifecycle-stage "customer"
   done
 ```
 
 ### Export Contacts to CSV
 
 ```bash
-hsctl contacts list --format json | \
+hscli contacts list --format json | \
   jq -r '.[] | [.id, .properties.email, .properties.firstname, .properties.lastname] | @csv' > contacts.csv
 ```
 
 ### Find Contacts by Domain
 
 ```bash
-hsctl contacts list --format json | \
+hscli contacts list --format json | \
   jq '.[] | select(.properties.email | contains("@example.com"))'
 ```
 
@@ -243,12 +243,12 @@ hsctl contacts list --format json | \
 ### Global Flags
 
 - `--api-key string`: HubSpot API key (or set HUBSPOT_API_KEY env var)
-- `--config string`: Config file path (default: `$HOME/.hsctl.yaml`)
+- `--config string`: Config file path (default: `$HOME/.hscli.yaml`)
 - `-h, --help`: Show help information
 
 ### Contacts Commands
 
-#### `hsctl contacts list`
+#### `hscli contacts list`
 List all contacts.
 
 **Flags:**
@@ -256,13 +256,13 @@ List all contacts.
 - `-a, --all`: Retrieve all contacts (paginate through all pages)
 - `-f, --format string`: Output format - `table` or `json` (default: `table`)
 
-#### `hsctl contacts properties`
+#### `hscli contacts properties`
 List all available contact properties.
 
 **Flags:**
 - `-f, --format string`: Output format - `table` or `json` (default: `table`)
 
-#### `hsctl contacts create`
+#### `hscli contacts create`
 Create a new contact.
 
 **Flags:**
@@ -272,7 +272,7 @@ Create a new contact.
 - `--lifecycle-stage string`: Lifecycle stage (e.g., `lead`, `customer`)
 - `-p, --properties string`: Additional properties (format: `key1=value1,key2=value2`)
 
-#### `hsctl contacts update [contact-id]`
+#### `hscli contacts update [contact-id]`
 Update an existing contact.
 
 **Flags:**
@@ -282,7 +282,7 @@ Update an existing contact.
 - `--lifecycle-stage string`: Lifecycle stage
 - `-p, --properties string`: Additional properties (format: `key1=value1,key2=value2`)
 
-#### `hsctl contacts query [search-query]`
+#### `hscli contacts query [search-query]`
 Search for contacts.
 
 **Flags:**
@@ -293,7 +293,7 @@ Search for contacts.
 - Property-based: `property=value` (e.g., `email=john@example.com`)
 - Text search: `text` (searches in email field)
 
-#### `hsctl contacts delete [contact-id]`
+#### `hscli contacts delete [contact-id]`
 Delete a contact.
 
 **Flags:**
@@ -318,7 +318,7 @@ HubSpot has rate limits. If you encounter rate limit errors:
 ### Property Not Found
 
 If a property update fails:
-1. Use `hsctl contacts properties` to list available properties
+1. Use `hscli contacts properties` to list available properties
 2. Ensure property names match exactly (case-sensitive)
 3. Check that the property type matches the value you're setting
 
@@ -338,7 +338,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For issues, questions, or contributions, please open an issue on [GitHub](https://github.com/obay/hsctl/issues).
+For issues, questions, or contributions, please open an issue on [GitHub](https://github.com/obay/hscli/issues).
 
 ## Roadmap
 

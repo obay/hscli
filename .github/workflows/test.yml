@@ -25,8 +25,8 @@ jobs:
         run: go test -v ./...
 
       - name: Build
-        run: go build -o hsctl .
+        run: go build -o hscli .
 
       - name: Check binary
-        run: ./hsctl --version || ./hsctl --help
+        run: ./hscli --version || ./hscli --help
 

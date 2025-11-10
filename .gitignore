@@ -1,6 +1,6 @@
 # Binaries
-hsctl
-hsctl.exe
+hscli
+hscli.exe
 *.exe
 *.dll
 *.so
@@ -26,8 +26,8 @@ go.work
 *~
 
 # Config files with sensitive data
-.hsctl.yaml
-.hsctl.yml
+.hscli.yaml
+.hscli.yml
 config.yaml
 config.yml
 

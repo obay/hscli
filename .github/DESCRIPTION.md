@@ -28,7 +28,7 @@ Add these topics to your repository:
 
 ## How to Update Repository Description
 
-1. Go to your repository on GitHub: `https://github.com/obay/hsctl`
+1. Go to your repository on GitHub: `https://github.com/obay/hscli`
 2. Click the ⚙️ (Settings) icon or go to Settings
 3. Scroll down to "About" section
 4. Paste the description above

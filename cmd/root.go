@@ -12,9 +12,9 @@ var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "hsctl",
+	Use:   "hscli",
 	Short: "A CLI tool for managing HubSpot contacts",
-	Long: `HSCTL is a command-line tool for managing HubSpot contacts.
+	Long: `hscli is a command-line tool for managing HubSpot contacts.
 It provides CRUD operations for contacts including listing, creating,
 updating, deleting, and querying contacts.`,
 }
@@ -30,7 +30,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.hsctl.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.hscli.yaml)")
 	rootCmd.PersistentFlags().String("api-key", "", "HubSpot API key (or set HUBSPOT_API_KEY env var)")
 	viper.BindPFlag("api-key", rootCmd.PersistentFlags().Lookup("api-key"))
 }
@@ -45,7 +45,7 @@ func initConfig() {
 
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
-		viper.SetConfigName(".hsctl")
+		viper.SetConfigName(".hscli")
 	}
 
 	viper.SetEnvPrefix("HUBSPOT")

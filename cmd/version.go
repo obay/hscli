@@ -17,10 +17,10 @@ var (
 // versionCmd represents the version command
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of hsctl",
-	Long:  `Print the version number and build information of hsctl.`,
+	Short: "Print the version number of hscli",
+	Long:  `Print the version number and build information of hscli.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("hsctl version %s\n", version)
+		fmt.Printf("hscli version %s\n", version)
 		fmt.Printf("Commit: %s\n", commit)
 		fmt.Printf("Build Date: %s\n", buildDate)
 		fmt.Printf("Go Version: %s\n", runtime.Version())

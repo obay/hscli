@@ -1,6 +1,6 @@
 version: 2
 
-project_name: hsctl
+project_name: hscli
 
 before:
   hooks:
@@ -18,11 +18,11 @@ builds:
       - amd64
       - arm64
     main: ./main.go
-    binary: hsctl
+    binary: hscli
     flags:
       - -trimpath
     ldflags:
-      - -s -w -X github.com/obay/hsctl/cmd.version={{.Version}} -X github.com/obay/hsctl/cmd.commit={{.Commit}} -X github.com/obay/hsctl/cmd.buildDate={{.Date}}
+      - -s -w -X github.com/obay/hscli/cmd.version={{.Version}} -X github.com/obay/hscli/cmd.commit={{.Commit}} -X github.com/obay/hscli/cmd.buildDate={{.Date}}
 
 archives:
   - id: versioned
@@ -58,12 +58,12 @@ changelog:
 release:
   github:
     owner: obay
-    name: hsctl
+    name: hscli
   mode: replace
   header: |
     ## What's Changed
   footer: |
-    **Full Changelog**: https://github.com/obay/hsctl/compare/{{ .PreviousTag }}...{{ .Tag }}
+    **Full Changelog**: https://github.com/obay/hscli/compare/{{ .PreviousTag }}...{{ .Tag }}
 
 scoops:
   - ids:
@@ -71,7 +71,7 @@ scoops:
     repository:
       owner: obay
       name: scoop-bucket
-    homepage: "https://github.com/obay/hsctl"
+    homepage: "https://github.com/obay/hscli"
     description: "A CLI tool for managing HubSpot contacts"
     license: "MIT"
     skip_upload: false
@@ -82,27 +82,27 @@ homebrew_casks:
     repository:
       owner: obay
       name: homebrew-tap
-    name: hsctl
-    homepage: "https://github.com/obay/hsctl"
+    name: hscli
+    homepage: "https://github.com/obay/hscli"
     description: "A CLI tool for managing HubSpot contacts"
     license: "MIT"
     url:
-      verified: github.com/obay/hsctl
+      verified: github.com/obay/hscli
     # If the binary isn't signed/notarized, unquarantine it so users don't get blocked
     hooks:
       post:
         install: |
           if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/hsctl"], sudo: false
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/hscli"], sudo: false
           end
 
 nfpms:
   - id: packages
-    package_name: hsctl
+    package_name: hscli
     file_name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
     maintainer: "obay <your-email@example.com>"
     description: "A CLI tool for managing HubSpot contacts"
-    homepage: "https://github.com/obay/hsctl"
+    homepage: "https://github.com/obay/hscli"
     license: "MIT"
     formats:
       - deb

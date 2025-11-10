@@ -1,4 +1,4 @@
-module github.com/obay/hsctl
+module github.com/obay/hscli
 
 go 1.25.2
 

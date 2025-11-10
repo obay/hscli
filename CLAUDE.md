@@ -4,17 +4,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-HSCTL is a command-line interface (CLI) tool written in Go for managing HubSpot contacts. It provides CRUD operations on HubSpot contacts via the HubSpot API v3, eliminating the need to navigate through the HubSpot web interface.
+hscli is a command-line interface (CLI) tool written in Go for managing HubSpot contacts. It provides CRUD operations on HubSpot contacts via the HubSpot API v3, eliminating the need to navigate through the HubSpot web interface.
 
 ## Development Commands
 
 ### Building
 ```bash
 # Build the binary
-go build -o hsctl .
+go build -o hscli .
 
 # Build with version information (as done by GoReleaser)
-go build -ldflags "-s -w -X github.com/obay/hsctl/cmd.version=dev -X github.com/obay/hsctl/cmd.commit=$(git rev-parse HEAD) -X github.com/obay/hsctl/cmd.buildDate=$(date -u +%Y-%m-%dT%H:%M:%SZ)" -o hsctl .
+go build -ldflags "-s -w -X github.com/obay/hscli/cmd.version=dev -X github.com/obay/hscli/cmd.commit=$(git rev-parse HEAD) -X github.com/obay/hscli/cmd.buildDate=$(date -u +%Y-%m-%dT%H:%M:%SZ)" -o hscli .
 ```
 
 ### Testing
@@ -35,7 +35,7 @@ go test -v ./internal/hubspot/...
 go run . contacts list --api-key YOUR_API_KEY
 
 # Run after building
-./hsctl contacts list --api-key YOUR_API_KEY
+./hscli contacts list --api-key YOUR_API_KEY
 ```
 
 ### Dependencies
@@ -75,7 +75,7 @@ go mod tidy
 **Configuration Priority (Viper)**
 1. Command-line flags (--api-key)
 2. Environment variables (HUBSPOT_API_KEY)
-3. Config file (~/.hsctl.yaml)
+3. Config file (~/.hscli.yaml)
 
 **Output Formatting**
 - Two output modes: `table` (human-readable) and `json` (machine-readable)
@@ -98,8 +98,8 @@ The project uses GoReleaser for automated releases:
 - **Triggered by**: Git tags matching `v*` pattern
 - **Builds for**: Linux, macOS, Windows (amd64, arm64)
 - **Outputs**:
-  - Versioned archives (e.g., `hsctl_v1.0.0_darwin_amd64.tar.gz`)
-  - Versionless archives (e.g., `hsctl_darwin_amd64.tar.gz`) for package managers
+  - Versioned archives (e.g., `hscli_v1.0.0_darwin_amd64.tar.gz`)
+  - Versionless archives (e.g., `hscli_darwin_amd64.tar.gz`) for package managers
   - Debian (.deb) and RPM (.rpm) packages
   - Homebrew cask formula (pushed to obay/homebrew-tap)
   - Scoop manifest (pushed to obay/scoop-bucket)
@@ -147,11 +147,11 @@ The project uses Viper for unified configuration management, eliminating the nee
 Viper checks for the API key in the following order (highest to lowest priority):
 1. **Command-line flag**: `--api-key YOUR_KEY`
 2. **Environment variable**: `HUBSPOT_API_KEY`
-3. **Config file**: `~/.hsctl.yaml`
+3. **Config file**: `~/.hscli.yaml`
 
 ### Configuration File Format
 
-Create `~/.hsctl.yaml` with:
+Create `~/.hscli.yaml` with:
 ```yaml
 api-key: your-hubspot-api-key-here
 ```
@@ -161,8 +161,8 @@ api-key: your-hubspot-api-key-here
 Configuration is initialized in [cmd/root.go](cmd/root.go):
 - `viper.BindPFlag("api-key", ...)` binds the CLI flag
 - `viper.BindEnv("api-key", "HUBSPOT_API_KEY")` binds the environment variable
-- `viper.SetConfigName(".hsctl")` sets the config file name
-- `viper.ReadInConfig()` reads the config file from `$HOME/.hsctl.yaml`
+- `viper.SetConfigName(".hscli")` sets the config file name
+- `viper.ReadInConfig()` reads the config file from `$HOME/.hscli.yaml`
 
 All commands use `viper.GetString("api-key")` to retrieve the API key from any source (see `getAPIKey()` in [cmd/contacts.go:315](cmd/contacts.go#L315)).
 
@@ -212,11 +212,11 @@ The `.github/workflows/release.yml` workflow will automatically:
    - Windows (amd64)
 
 2. **Create release artifacts**:
-   - Versioned archives: `hsctl_v0.2.0_darwin_amd64.tar.gz`
-   - Versionless archives: `hsctl_darwin_amd64.tar.gz` (for package managers)
-   - Debian packages: `hsctl_linux_amd64.deb`
-   - RPM packages: `hsctl_linux_amd64.rpm`
-   - Windows ZIP: `hsctl_windows_amd64.zip`
+   - Versioned archives: `hscli_v0.2.0_darwin_amd64.tar.gz`
+   - Versionless archives: `hscli_darwin_amd64.tar.gz` (for package managers)
+   - Debian packages: `hscli_linux_amd64.deb`
+   - RPM packages: `hscli_linux_amd64.rpm`
+   - Windows ZIP: `hscli_windows_amd64.zip`
    - Checksums file: `checksums.txt`
 
 3. **Update package managers**:
@@ -230,15 +230,15 @@ The `.github/workflows/release.yml` workflow will automatically:
 
 #### Step 4: Verify the Release
 
-1. Check GitHub Actions: https://github.com/obay/hsctl/actions
-2. Verify release page: https://github.com/obay/hsctl/releases/tag/v0.2.0
+1. Check GitHub Actions: https://github.com/obay/hscli/actions
+2. Verify release page: https://github.com/obay/hscli/releases/tag/v0.2.0
 3. Test installation via package managers:
    ```bash
    # Homebrew (macOS)
-   brew update && brew upgrade hsctl
+   brew update && brew upgrade hscli
 
    # Scoop (Windows)
-   scoop update && scoop update hsctl
+   scoop update && scoop update hscli
    ```
 
 ### Testing Releases Locally
@@ -266,14 +266,14 @@ The first release automatically sets up package manager repositories:
 
 #### Homebrew Tap Setup
 - **Repository**: `obay/homebrew-tap`
-- GoReleaser creates/updates: `Casks/hsctl.rb`
-- Users install with: `brew tap obay/homebrew-tap && brew install hsctl`
+- GoReleaser creates/updates: `Casks/hscli.rb`
+- Users install with: `brew tap obay/homebrew-tap && brew install hscli`
 - The cask includes an `unquarantine` hook for unsigned binaries
 
 #### Scoop Bucket Setup
 - **Repository**: `obay/scoop-bucket`
-- GoReleaser creates/updates: `hsctl.json`
-- Users install with: `scoop bucket add obay https://github.com/obay/scoop-bucket && scoop install hsctl`
+- GoReleaser creates/updates: `hscli.json`
+- Users install with: `scoop bucket add obay https://github.com/obay/scoop-bucket && scoop install hscli`
 
 #### GitHub Token Requirements
 - The release workflow uses `HOMEBREW_TAP_TOKEN` secret
@@ -289,7 +289,7 @@ The first release automatically sets up package manager repositories:
 4. Verify Go version in workflow matches project requirements
 
 #### Build Failures
-1. Test local build: `go build -o hsctl .`
+1. Test local build: `go build -o hscli .`
 2. Check `.goreleaser.yml` configuration
 3. Verify all platforms are buildable: `GOOS=windows GOARCH=amd64 go build`
 
@@ -300,14 +300,14 @@ The first release automatically sets up package manager repositories:
 
 #### Binaries Don't Work on macOS
 - The homebrew cask includes an unquarantine hook
-- Users may need to run: `xattr -dr com.apple.quarantine /path/to/hsctl`
+- Users may need to run: `xattr -dr com.apple.quarantine /path/to/hscli`
 - Consider code signing for future releases
 
 ### Release Checklist
 
 Before creating a release:
 - [ ] All tests pass: `go test -v ./...`
-- [ ] Build succeeds: `go build -o hsctl .`
+- [ ] Build succeeds: `go build -o hscli .`
 - [ ] CHANGELOG.md is updated (if exists)
 - [ ] Version number follows semantic versioning
 - [ ] All changes are committed and pushed
@@ -327,20 +327,20 @@ After creating a release:
 
 ```bash
 # Clone the repository
-git clone https://github.com/obay/hsctl.git
-cd hsctl
+git clone https://github.com/obay/hscli.git
+cd hscli
 
 # Install dependencies
 go mod download
 
 # Build
-go build -o hsctl .
+go build -o hscli .
 
 # Run tests
 go test -v ./...
 
 # Install locally (optional)
-sudo mv hsctl /usr/local/bin/
+sudo mv hscli /usr/local/bin/
 ```
 
 ### For End Users

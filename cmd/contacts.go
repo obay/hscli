@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/obay/hsctl/internal/hubspot"
+	"github.com/obay/hscli/internal/hubspot"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -315,7 +315,7 @@ func getAPIKey() string {
 	// Viper automatically checks in this order:
 	// 1. Command-line flag (--api-key)
 	// 2. Environment variable (HUBSPOT_API_KEY)
-	// 3. Config file (~/.hsctl.yaml)
+	// 3. Config file (~/.hscli.yaml)
 	return viper.GetString("api-key")
 }
 

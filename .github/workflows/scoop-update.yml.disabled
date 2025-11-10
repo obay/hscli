@@ -27,6 +27,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Update hsctl to ${{ github.event.release.tag_name }}" || exit 0
+          git commit -m "Update hscli to ${{ github.event.release.tag_name }}" || exit 0
           git push
 
