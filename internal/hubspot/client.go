@@ -120,7 +120,7 @@ func (c *Client) ListContacts(limit int, after string) (*ContactResponse, error)
 	if after != "" {
 		params.Add("after", after)
 	}
-	params.Add("properties", "email,firstname,lastname,hs_lead_status,lifecyclestage")
+	params.Add("properties", "email,firstname,lastname,company,hs_lead_status,lifecyclestage")
 
 	if len(params) > 0 {
 		endpoint += "?" + params.Encode()
@@ -143,7 +143,7 @@ func (c *Client) ListContacts(limit int, after string) (*ContactResponse, error)
 func (c *Client) GetContact(contactID string) (*Contact, error) {
 	endpoint := fmt.Sprintf("/crm/v3/objects/contacts/%s", contactID)
 	params := url.Values{}
-	params.Add("properties", "email,firstname,lastname,hs_lead_status,lifecyclestage")
+	params.Add("properties", "email,firstname,lastname,company,hs_lead_status,lifecyclestage")
 
 	endpoint += "?" + params.Encode()
 
@@ -255,7 +255,7 @@ func (c *Client) SearchContacts(query string, limit int) (*ContactResponse, erro
 	requestBody := map[string]interface{}{
 		"filterGroups": filterGroups,
 		"limit":        limit,
-		"properties":   []string{"email", "firstname", "lastname", "hs_lead_status", "lifecyclestage"},
+		"properties":   []string{"email", "firstname", "lastname", "company", "hs_lead_status", "lifecyclestage"},
 	}
 
 	respBody, err := c.doRequest("POST", endpoint, requestBody)

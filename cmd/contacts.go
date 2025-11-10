@@ -330,17 +330,18 @@ func printContacts(contacts []hubspot.Contact, format string) error {
 	}
 
 	// Table format
-	fmt.Printf("%-20s %-40s %-20s %-20s %-20s\n", "ID", "Email", "First Name", "Last Name", "Lifecycle Stage")
-	fmt.Println(strings.Repeat("-", 120))
+	fmt.Printf("%-20s %-40s %-20s %-20s %-30s %-20s\n", "ID", "Email", "First Name", "Last Name", "Company", "Lifecycle Stage")
+	fmt.Println(strings.Repeat("-", 150))
 
 	for _, contact := range contacts {
 		email := getStringValue(contact.Properties["email"])
 		firstName := getStringValue(contact.Properties["firstname"])
 		lastName := getStringValue(contact.Properties["lastname"])
+		company := getStringValue(contact.Properties["company"])
 		lifecycleStage := getStringValue(contact.Properties["lifecyclestage"])
 
-		fmt.Printf("%-20s %-40s %-20s %-20s %-20s\n",
-			contact.ID, email, firstName, lastName, lifecycleStage)
+		fmt.Printf("%-20s %-40s %-20s %-20s %-30s %-20s\n",
+			contact.ID, email, firstName, lastName, company, lifecycleStage)
 	}
 
 	fmt.Printf("\nTotal: %d contact(s)\n", len(contacts))
