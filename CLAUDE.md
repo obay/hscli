@@ -171,3 +171,181 @@ All commands use `viper.GetString("api-key")` to retrieve the API key from any s
 When creating a HubSpot private app, ensure it has these scopes:
 - `crm.objects.contacts.read`
 - `crm.objects.contacts.write`
+
+## Release Process
+
+### Creating a New Release
+
+The project uses GoReleaser with GitHub Actions for automated releases. Releases are triggered by pushing a git tag with the format `v*`.
+
+#### Step 1: Prepare the Release
+
+```bash
+# Ensure all changes are committed
+git add .
+git commit -m "chore: prepare release vX.Y.Z"
+git push origin main
+```
+
+#### Step 2: Create and Push a Tag
+
+Follow [Semantic Versioning](https://semver.org/):
+- **MAJOR** (v2.0.0): Breaking changes
+- **MINOR** (v1.1.0): New features (backward compatible)
+- **PATCH** (v1.0.1): Bug fixes (backward compatible)
+
+```bash
+# Create annotated tag
+git tag -a v0.2.0 -m "Release v0.2.0 - Description of changes"
+
+# Push tag to trigger release workflow
+git push origin v0.2.0
+```
+
+#### Step 3: Automated Release Workflow
+
+The `.github/workflows/release.yml` workflow will automatically:
+
+1. **Build binaries** for all platforms:
+   - Linux (amd64, arm64)
+   - macOS/Darwin (amd64, arm64)
+   - Windows (amd64)
+
+2. **Create release artifacts**:
+   - Versioned archives: `hsctl_v0.2.0_darwin_amd64.tar.gz`
+   - Versionless archives: `hsctl_darwin_amd64.tar.gz` (for package managers)
+   - Debian packages: `hsctl_linux_amd64.deb`
+   - RPM packages: `hsctl_linux_amd64.rpm`
+   - Windows ZIP: `hsctl_windows_amd64.zip`
+   - Checksums file: `checksums.txt`
+
+3. **Update package managers**:
+   - Homebrew: Commits cask formula to `obay/homebrew-tap`
+   - Scoop: Commits manifest to `obay/scoop-bucket`
+
+4. **Create GitHub release** with:
+   - Auto-generated changelog
+   - All build artifacts attached
+   - Release notes
+
+#### Step 4: Verify the Release
+
+1. Check GitHub Actions: https://github.com/obay/hsctl/actions
+2. Verify release page: https://github.com/obay/hsctl/releases/tag/v0.2.0
+3. Test installation via package managers:
+   ```bash
+   # Homebrew (macOS)
+   brew update && brew upgrade hsctl
+
+   # Scoop (Windows)
+   scoop update && scoop update hsctl
+   ```
+
+### Testing Releases Locally
+
+Before pushing a tag, test the release process locally:
+
+```bash
+# Install GoReleaser (if not already installed)
+brew install goreleaser/tap/goreleaser
+
+# Test without publishing (dry run)
+goreleaser release --snapshot --skip-publish --clean
+
+# Check generated artifacts in ./dist/
+ls -la dist/
+
+# Verify generated package manager configs
+cat dist/*.rb  # Homebrew formula
+cat dist/*.json  # Scoop manifest
+```
+
+### First-Time Release Setup
+
+The first release automatically sets up package manager repositories:
+
+#### Homebrew Tap Setup
+- **Repository**: `obay/homebrew-tap`
+- GoReleaser creates/updates: `Casks/hsctl.rb`
+- Users install with: `brew tap obay/homebrew-tap && brew install hsctl`
+- The cask includes an `unquarantine` hook for unsigned binaries
+
+#### Scoop Bucket Setup
+- **Repository**: `obay/scoop-bucket`
+- GoReleaser creates/updates: `hsctl.json`
+- Users install with: `scoop bucket add obay https://github.com/obay/scoop-bucket && scoop install hsctl`
+
+#### GitHub Token Requirements
+- The release workflow uses `HOMEBREW_TAP_TOKEN` secret
+- Token needs `repo` scope for both main repository and tap/bucket repositories
+- Set in: Repository Settings → Secrets and Variables → Actions
+
+### Troubleshooting Releases
+
+#### Release Workflow Fails
+1. Check GitHub Actions logs for errors
+2. Verify `HOMEBREW_TAP_TOKEN` is set and valid
+3. Ensure tag format matches `v*` pattern
+4. Verify Go version in workflow matches project requirements
+
+#### Build Failures
+1. Test local build: `go build -o hsctl .`
+2. Check `.goreleaser.yml` configuration
+3. Verify all platforms are buildable: `GOOS=windows GOARCH=amd64 go build`
+
+#### Package Manager Issues
+1. **Homebrew**: Check tap repository for committed formula
+2. **Scoop**: Verify bucket repository has updated manifest
+3. **Checksums**: Ensure checksums.txt is generated correctly
+
+#### Binaries Don't Work on macOS
+- The homebrew cask includes an unquarantine hook
+- Users may need to run: `xattr -dr com.apple.quarantine /path/to/hsctl`
+- Consider code signing for future releases
+
+### Release Checklist
+
+Before creating a release:
+- [ ] All tests pass: `go test -v ./...`
+- [ ] Build succeeds: `go build -o hsctl .`
+- [ ] CHANGELOG.md is updated (if exists)
+- [ ] Version number follows semantic versioning
+- [ ] All changes are committed and pushed
+- [ ] Local GoReleaser test passes: `goreleaser release --snapshot --skip-publish --clean`
+
+After creating a release:
+- [ ] GitHub Actions workflow completed successfully
+- [ ] Release appears on GitHub releases page
+- [ ] All artifacts are present (binaries, packages, checksums)
+- [ ] Homebrew tap is updated
+- [ ] Scoop bucket is updated
+- [ ] Installation via package managers works
+
+## Installation for Development
+
+### For Contributors
+
+```bash
+# Clone the repository
+git clone https://github.com/obay/hsctl.git
+cd hsctl
+
+# Install dependencies
+go mod download
+
+# Build
+go build -o hsctl .
+
+# Run tests
+go test -v ./...
+
+# Install locally (optional)
+sudo mv hsctl /usr/local/bin/
+```
+
+### For End Users
+
+See the [README.md](README.md) for user-facing installation instructions via:
+- Homebrew (macOS)
+- Scoop (Windows)
+- Direct downloads for all platforms

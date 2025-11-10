@@ -46,180 +46,69 @@ HSCTL bridges this gap by providing a fast, scriptable interface to HubSpot's co
 
 ## Installation
 
-### Quick Install (Direct Download)
-
-Download the latest release directly from GitHub. GoReleaser automatically creates downloadable packages for each release.
-
-**macOS:**
-- [Intel (amd64) - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_amd64.tar.gz)
-- [Apple Silicon (arm64) - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_arm64.tar.gz)
-
-**Linux:**
-- [Intel (amd64) - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.tar.gz)
-- [ARM64 - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_arm64.tar.gz)
-- [Debian Package (.deb)](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.deb)
-- [RPM Package (.rpm)](https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.rpm)
-
-**Windows:**
-- [64-bit ZIP - Latest](https://github.com/obay/hsctl/releases/latest/download/hsctl_windows_amd64.zip)
-
-📦 **[View All Releases](https://github.com/obay/hsctl/releases)** | 🔍 **[Verify Checksums](https://github.com/obay/hsctl/releases/latest/download/checksums.txt)**
-
-> **Note:** After downloading, extract the archive and move the binary to your PATH. See platform-specific instructions below for detailed steps.
-
 ### macOS
-
-#### Using Homebrew (Recommended)
 
 ```bash
 brew tap obay/homebrew-tap
 brew install hsctl
 ```
 
-#### Direct Download
-
-1. Download the latest release for your architecture:
-   ```bash
-   # Intel Mac
-   curl -LO https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_amd64.tar.gz
-   
-   # Apple Silicon Mac
-   curl -LO https://github.com/obay/hsctl/releases/latest/download/hsctl_darwin_arm64.tar.gz
-   ```
-
-2. Extract the archive:
-   ```bash
-   tar -xzf hsctl_darwin_*.tar.gz
-   ```
-
-3. Move the binary to your PATH:
-   ```bash
-   sudo mv hsctl /usr/local/bin/
-   chmod +x /usr/local/bin/hsctl
-   ```
-
-4. Verify installation:
-   ```bash
-   hsctl --version
-   ```
-
 ### Windows
-
-#### Using Scoop (Recommended)
 
 ```powershell
 scoop bucket add obay https://github.com/obay/scoop-bucket
 scoop install hsctl
 ```
 
-#### Direct Download
-
-1. Download the latest Windows release:
-   ```powershell
-   Invoke-WebRequest -Uri "https://github.com/obay/hsctl/releases/latest/download/hsctl_windows_amd64.zip" -OutFile "hsctl.zip"
-   ```
-
-2. Extract the ZIP file:
-   ```powershell
-   Expand-Archive -Path hsctl.zip -DestinationPath .
-   ```
-
-3. Add to PATH (choose one method):
-   - **Option A**: Move `hsctl.exe` to a directory already in your PATH (e.g., `C:\Windows\System32`)
-   - **Option B**: Add the extracted directory to your system PATH:
-     - Open System Properties → Environment Variables
-     - Edit PATH and add the directory containing `hsctl.exe`
-
-4. Verify installation:
-   ```powershell
-   hsctl --version
-   ```
-
 ### Linux
 
-#### Option 1: Debian/Ubuntu (.deb package) - Recommended
-
-1. Download and install:
-   ```bash
-   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.deb
-   sudo dpkg -i hsctl_linux_amd64.deb
-   ```
-
-2. Verify:
-   ```bash
-   hsctl --version
-   ```
-
-#### Option 2: Red Hat/CentOS/Fedora (.rpm package) - Recommended
-
-1. Download and install:
-   ```bash
-   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.rpm
-   sudo rpm -i hsctl_linux_amd64.rpm
-   ```
-
-2. Verify:
-   ```bash
-   hsctl --version
-   ```
-
-#### Option 3: Direct Download (Any Linux Distribution)
-
-1. Download the tarball for your architecture:
-   ```bash
-   # Intel/AMD64
-   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.tar.gz
-   
-   # ARM64
-   wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_arm64.tar.gz
-   ```
-
-2. Extract:
-   ```bash
-   tar -xzf hsctl_linux_*.tar.gz
-   ```
-
-3. Install:
-   ```bash
-   sudo mv hsctl /usr/local/bin/
-   sudo chmod +x /usr/local/bin/hsctl
-   ```
-
-4. Verify:
-   ```bash
-   hsctl --version
-   ```
-
-### Build from Source
-
-If you prefer to build from source:
-
+**Debian/Ubuntu:**
 ```bash
-git clone https://github.com/obay/hsctl.git
-cd hsctl
-go build -o hsctl .
-sudo mv hsctl /usr/local/bin/
+wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.deb
+sudo dpkg -i hsctl_linux_amd64.deb
 ```
+
+**Red Hat/CentOS/Fedora:**
+```bash
+wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.rpm
+sudo rpm -i hsctl_linux_amd64.rpm
+```
+
+**Other distributions:**
+```bash
+wget https://github.com/obay/hsctl/releases/latest/download/hsctl_linux_amd64.tar.gz
+tar -xzf hsctl_linux_amd64.tar.gz
+sudo mv hsctl /usr/local/bin/
+sudo chmod +x /usr/local/bin/hsctl
+```
+
+### Direct Downloads
+
+📦 [View All Releases](https://github.com/obay/hsctl/releases) | 🔍 [Checksums](https://github.com/obay/hsctl/releases/latest/download/checksums.txt)
+
+Pre-built binaries are available for:
+- **macOS**: Intel (amd64) and Apple Silicon (arm64)
+- **Linux**: amd64 and arm64
+- **Windows**: amd64
 
 ## Configuration
 
-HSCTL requires a HubSpot API key to authenticate. You can provide it in three ways:
+HSCTL requires a HubSpot API key to authenticate. Choose one of these methods:
 
-1. **Command-line flag** (recommended for testing):
-   ```bash
-   hsctl contacts list --api-key YOUR_API_KEY
-   ```
-
-2. **Environment variable** (recommended for production):
-   ```bash
-   export HUBSPOT_API_KEY=YOUR_API_KEY
-   hsctl contacts list
-   ```
-
-3. **Config file** (optional):
+1. **Config file** (recommended):
    Create `~/.hsctl.yaml`:
    ```yaml
    api-key: YOUR_API_KEY
+   ```
+
+2. **Environment variable**:
+   ```bash
+   export HUBSPOT_API_KEY=YOUR_API_KEY
+   ```
+
+3. **Command-line flag**:
+   ```bash
+   hsctl contacts list --api-key YOUR_API_KEY
    ```
 
 ### Getting Your HubSpot API Key
@@ -234,22 +123,22 @@ HSCTL requires a HubSpot API key to authenticate. You can provide it in three wa
 
 ## Usage
 
-### List Contacts
+Once configured, you can use HSCTL without specifying the API key each time.
 
-List all contacts with their properties:
+### List Contacts
 
 ```bash
 # List first 100 contacts
-hsctl contacts list --api-key YOUR_API_KEY
+hsctl contacts list
 
 # List with custom limit
-hsctl contacts list --limit 50 --api-key YOUR_API_KEY
+hsctl contacts list --limit 50
 
 # List all contacts (paginated)
-hsctl contacts list --all --api-key YOUR_API_KEY
+hsctl contacts list --all
 
 # Output as JSON
-hsctl contacts list --format json --api-key YOUR_API_KEY
+hsctl contacts list --format json
 ```
 
 ### List Properties
@@ -257,82 +146,69 @@ hsctl contacts list --format json --api-key YOUR_API_KEY
 View all available contact properties:
 
 ```bash
-hsctl contacts properties --api-key YOUR_API_KEY
+hsctl contacts properties
 
 # Output as JSON
-hsctl contacts properties --format json --api-key YOUR_API_KEY
+hsctl contacts properties --format json
 ```
 
 ### Create a Contact
-
-Create a new contact:
 
 ```bash
 # Basic contact
 hsctl contacts create \
   --email "john.doe@example.com" \
   --firstname "John" \
-  --lastname "Doe" \
-  --api-key YOUR_API_KEY
+  --lastname "Doe"
 
 # With lifecycle stage
 hsctl contacts create \
   --email "jane@example.com" \
   --firstname "Jane" \
   --lastname "Smith" \
-  --lifecycle-stage "customer" \
-  --api-key YOUR_API_KEY
+  --lifecycle-stage "customer"
 
 # With custom properties
 hsctl contacts create \
   --email "bob@example.com" \
   --firstname "Bob" \
-  --properties "company=Acme Inc,phone=555-1234" \
-  --api-key YOUR_API_KEY
+  --properties "company=Acme Inc,phone=555-1234"
 ```
 
 ### Update a Contact
 
-Update an existing contact:
-
 ```bash
 # Update lifecycle stage
-hsctl contacts update CONTACT_ID \
-  --lifecycle-stage "customer" \
-  --api-key YOUR_API_KEY
+hsctl contacts update CONTACT_ID --lifecycle-stage "customer"
 
 # Update multiple properties
 hsctl contacts update CONTACT_ID \
   --firstname "John" \
   --lastname "Updated" \
-  --properties "company=New Company,phone=555-9999" \
-  --api-key YOUR_API_KEY
+  --properties "company=New Company,phone=555-9999"
 ```
 
 ### Search/Query Contacts
 
-Search for contacts:
-
 ```bash
 # Search by email
-hsctl contacts query "email=john@example.com" --api-key YOUR_API_KEY
+hsctl contacts query "email=john@example.com"
 
 # Search by property
-hsctl contacts query "lifecyclestage=customer" --api-key YOUR_API_KEY
+hsctl contacts query "lifecyclestage=customer"
 
 # Limit results
-hsctl contacts query "email=example" --limit 10 --api-key YOUR_API_KEY
+hsctl contacts query "email=example" --limit 10
 ```
 
 ### Delete a Contact
 
-Delete a contact (with confirmation):
-
 ```bash
-hsctl contacts delete CONTACT_ID --api-key YOUR_API_KEY
+# Delete with confirmation
+hsctl contacts delete CONTACT_ID
 
 # Skip confirmation prompt
-hsctl contacts delete CONTACT_ID --force --api-key YOUR_API_KEY
+hsctl contacts delete CONTACT_ID --force
 ```
 
 ## Examples
@@ -340,25 +216,25 @@ hsctl contacts delete CONTACT_ID --force --api-key YOUR_API_KEY
 ### Bulk Update Lifecycle Stage
 
 ```bash
-# List all leads
-hsctl contacts query "lifecyclestage=lead" --format json --api-key YOUR_API_KEY | \
+# List all leads and update them to customers
+hsctl contacts query "lifecyclestage=lead" --format json | \
   jq -r '.[] | .id' | \
   while read id; do
-    hsctl contacts update "$id" --lifecycle-stage "customer" --api-key YOUR_API_KEY
+    hsctl contacts update "$id" --lifecycle-stage "customer"
   done
 ```
 
 ### Export Contacts to CSV
 
 ```bash
-hsctl contacts list --format json --api-key YOUR_API_KEY | \
+hsctl contacts list --format json | \
   jq -r '.[] | [.id, .properties.email, .properties.firstname, .properties.lastname] | @csv' > contacts.csv
 ```
 
 ### Find Contacts by Domain
 
 ```bash
-hsctl contacts list --format json --api-key YOUR_API_KEY | \
+hsctl contacts list --format json | \
   jq '.[] | select(.properties.email | contains("@example.com"))'
 ```
 
